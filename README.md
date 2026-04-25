@@ -39,10 +39,10 @@ A web-based hospital appointment system that allows patients to book, manage, an
 ![Home](home.png.png)
 
 ### Patient Dashboard
-![Patient](patient.png.png)
+![Patient](patients.png.png)
 
 ### Admin Panel
-![Admin](admin.png)
+![Admin](admin.png.png)
 
 ### Doctors Page
 ![Doctors](doctors.png.png)
