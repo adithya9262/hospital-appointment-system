@@ -33,7 +33,19 @@ A web-based hospital appointment system that allows patients to book, manage, an
 
 ## 📸 Screenshots
 
-(Add screenshots here)
+## 📸 Screenshots
+
+### Home Page
+![Home](home.png)
+
+### Patient Dashboard
+![Patient](patient.png)
+
+### Admin Panel
+![Admin](admin.png)
+
+### Doctors Page
+![Doctors](doctors.png)
 
 ---
 
