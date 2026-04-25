@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin Dashboard - Analytics, user management, and appointment oversight.">
+  <title>Admin Dashboard - SmartCare</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">+</div>
+        <span>SmartCare</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="doctors.html">Our Doctors</a>
+        <a href="patient.html">Patient</a>
+        <a href="admin.html" class="active">Admin</a>
+        <a href="#" class="nav-login-btn" id="adminLogoutNav" onclick="adminLogout()" style="display:none;">Logout</a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Login Overlay -->
+  <div class="admin-login-overlay" id="adminLoginOverlay">
+    <div class="admin-login-card">
+      <div class="login-icon">🔐</div>
+      <h2>Admin Login</h2>
+      <p class="subtitle">Enter your credentials to access the dashboard</p>
+      <form id="adminLoginForm">
+        <div class="form-group">
+          <label for="adminUsername">Username</label>
+          <input type="text" id="adminUsername" placeholder="Enter admin username" required>
+        </div>
+        <div class="form-group">
+          <label for="adminPassword">Password</label>
+          <input type="password" id="adminPassword" placeholder="Enter admin password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="adminLoginBtn" style="width:100%;justify-content:center;margin-top:0.5rem;">🔓 Login to Dashboard</button>
+        <p class="error-msg" id="adminError">Invalid username or password.</p>
+      </form>
+      <div class="credentials-hint">
+        <strong>Demo:</strong> admin / admin123
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard-layout hidden" id="dashboardContent">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-user-icon">👨‍💼</div>
+        <h3>Admin Panel</h3>
+        <p>System Administrator</p>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="sidebar-link active" data-section="analyticsSection" id="sideAnalytics">📊 Analytics</a>
+        <a href="#" class="sidebar-link" data-section="usersSection" id="sideUsers">👥 Manage Users</a>
+        <a href="#" class="sidebar-link" data-section="adminApptSection" id="sideAppt">📅 Appointments</a>
+        <a href="#" class="sidebar-link" data-section="adminSettingsSection" id="sideAdminSettings">⚙️ Settings</a>
+      </nav>
+    </aside>
+
+    <main class="dashboard-main">
+      <!-- Analytics Section -->
+      <div class="dashboard-section active" id="analyticsSection">
+        <h1>Analytics Dashboard</h1>
+        <div class="stats-grid" style="margin-top:1.5rem;">
+          <div class="stat-card">
+            <div class="stat-icon blue">👥</div>
+            <div class="stat-info">
+              <h3 id="totalPatients">0</h3>
+              <p>Total Patients</p>
+              <span class="stat-trend up">+12% this month</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">👨‍⚕️</div>
+            <div class="stat-info">
+              <h3 id="totalDoctors">0</h3>
+              <p>Active Doctors</p>
+              <span class="stat-trend up">+2 new</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">📅</div>
+            <div class="stat-info">
+              <h3 id="totalAppointments">0</h3>
+              <p>Monthly Appointments</p>
+              <span class="stat-trend up">+10.5%</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red">❌</div>
+            <div class="stat-info">
+              <h3 id="noShowRate">7.1%</h3>
+              <p>No-Show Rate</p>
+              <span class="stat-trend down">-3.2% vs last month</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="charts-row">
+          <div class="chart-section">
+            <h2>📈 Monthly Trends</h2>
+            <div class="chart-bars" id="chartBars"></div>
+          </div>
+          <div class="chart-section">
+            <h2>🏥 Department Distribution</h2>
+            <div class="dept-chart" id="deptChart"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manage Users Section -->
+      <div class="dashboard-section" id="usersSection">
+        <h1>Manage Users</h1>
+        <div class="form-section" style="margin-top:1.5rem;">
+          <h2>👥 Registered Patients</h2>
+          <div id="patientsList" class="appointments-list"></div>
+        </div>
+      </div>
+
+      <!-- Appointments Section -->
+      <div class="dashboard-section" id="adminApptSection">
+        <h1>All Appointments</h1>
+        <div class="form-section" style="margin-top:1.5rem;">
+          <h2>📋 Appointment Records</h2>
+          <div id="adminAppointments" class="appointments-list"></div>
+        </div>
+      </div>
+
+      <!-- Settings Section -->
+      <div class="dashboard-section" id="adminSettingsSection">
+        <h1>Settings</h1>
+        <div class="form-section" style="margin-top:1.5rem;">
+          <h2>⚙️ System Settings</h2>
+          <p style="color:var(--text-muted);padding:2rem;text-align:center;">System configuration options will appear here.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

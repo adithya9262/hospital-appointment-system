@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Patient Portal - Manage appointments, health records and more.">
+  <title>Patient Portal - SmartCare</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">+</div>
+        <span>SmartCare</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="doctors.html">Our Doctors</a>
+        <a href="patient.html" class="active">Patient</a>
+        <a href="admin.html">Admin</a>
+        <a href="login.html" class="nav-login-btn">Login</a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-user-icon">👤</div>
+        <h3>Patient Portal</h3>
+        <p>Welcome back!</p>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="sidebar-link active" data-section="appointmentsSection" id="sideMyAppt">📅 My Appointments</a>
+        <a href="#" class="sidebar-link" data-section="healthSection" id="sideHealth">📋 Health Records</a>
+        <a href="#" class="sidebar-link" data-section="remindersSection" id="sideReminders">🔔 Reminders</a>
+        <a href="#" class="sidebar-link" data-section="settingsSection" id="sideSettings">⚙️ Settings</a>
+        <a href="#" class="sidebar-link" data-section="bookingSection" id="sideBookNew">📅 Book New</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+
+      <!-- My Appointments Section -->
+      <div class="dashboard-section active" id="appointmentsSection">
+        <div class="dash-header">
+          <h1>My Appointments</h1>
+          <button class="btn btn-primary" onclick="showSection('bookingSection')" id="bookNewBtn">+ Book Appointment</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">📅</div>
+            <div class="stat-info">
+              <h3 id="patTotalAppt">0</h3>
+              <p>Total Appointments</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">✅</div>
+            <div class="stat-info">
+              <h3 id="patCompleted">0</h3>
+              <p>Completed</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">🕐</div>
+            <div class="stat-info">
+              <h3 id="patUpcoming">0</h3>
+              <p>Upcoming</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red">❌</div>
+            <div class="stat-info">
+              <h3 id="patCancelled">0</h3>
+              <p>Cancelled</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reminders -->
+        <div class="form-section">
+          <h2>🔔 Reminders & Notifications</h2>
+          <div id="remindersList" class="reminders-list"></div>
+        </div>
+
+        <!-- Appointments List -->
+        <div class="form-section">
+          <h2>📋 Appointment History</h2>
+          <div id="appointmentsList" class="appointments-list"></div>
+        </div>
+      </div>
+
+      <!-- Health Records Section -->
+      <div class="dashboard-section" id="healthSection">
+        <h1>Health Records</h1>
+        <div class="form-section" style="margin-top:1.5rem;">
+          <h2>📋 Your Records</h2>
+          <p style="color:var(--text-muted);padding:2rem;text-align:center;">No health records available yet. Records will appear after your first appointment.</p>
+        </div>
+      </div>
+
+      <!-- Reminders Section -->
+      <div class="dashboard-section" id="remindersSection">
+        <h1>Reminders</h1>
+        <div class="form-section" style="margin-top:1.5rem;">
+          <h2>🔔 All Reminders</h2>
+          <div id="allRemindersList"></div>
+        </div>
+      </div>
+
+      <!-- Settings Section -->
+      <div class="dashboard-section" id="settingsSection">
+        <h1>Settings</h1>
+        <div class="form-section" style="margin-top:1.5rem;">
+          <h2>⚙️ Account Settings</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="Enter your name" id="settingsName">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="you@example.com" id="settingsEmail">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" placeholder="+1 (555) 000-0000" id="settingsPhone">
+            </div>
+          </div>
+          <br>
+          <button class="btn btn-primary" onclick="showToast('Settings saved!','success')">Save Changes</button>
+        </div>
+      </div>
+
+      <!-- Booking Section (Step Wizard) -->
+      <div class="dashboard-section" id="bookingSection">
+        <!-- Step Progress -->
+        <div class="step-wizard">
+          <div class="step active" id="step1Indicator"><span class="step-num">✓</span> Select Doctor</div>
+          <div class="step-line"></div>
+          <div class="step" id="step2Indicator"><span class="step-num">2</span> Choose Time</div>
+          <div class="step-line"></div>
+          <div class="step" id="step3Indicator"><span class="step-num">3</span> Confirm</div>
+        </div>
+
+        <!-- Step 1: Select Doctor -->
+        <div class="booking-step active" id="bookingStep1">
+          <div class="filter-buttons" id="specialtyFilters"></div>
+          <div class="doctors-grid" id="bookingDoctorsGrid"></div>
+          <div style="text-align:center;margin-top:1.5rem;">
+            <button class="btn btn-primary" id="step1Next" onclick="goToStep(2)" disabled>Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Choose Time -->
+        <div class="booking-step" id="bookingStep2">
+          <div class="form-section">
+            <h2 id="step2Title">Select Date & Time</h2>
+            <div class="form-group" style="margin-bottom:1.2rem;">
+              <label>Date</label>
+              <input type="date" id="apptDate" required>
+            </div>
+            <div class="form-group" style="margin-bottom:1.2rem;">
+              <label>Available Time Slots</label>
+              <div class="time-slots" id="timeSlots"></div>
+            </div>
+            <div class="form-group">
+              <label>Reason for Visit</label>
+              <textarea id="visitReason" placeholder="Describe your symptoms..." rows="3" class="form-textarea"></textarea>
+            </div>
+            <div class="step-buttons">
+              <button class="btn btn-outline" onclick="goToStep(1)">← Back</button>
+              <button class="btn btn-primary" id="step2Next" onclick="goToStep(3)" disabled>Continue →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Confirm -->
+        <div class="booking-step" id="bookingStep3">
+          <div class="form-section">
+            <h2>Confirm Your Appointment</h2>
+            <div class="confirm-details" id="confirmDetails"></div>
+            <div class="form-group" style="margin-top:1rem;">
+              <label>Patient Name</label>
+              <input type="text" id="patientName" placeholder="Enter your full name" required>
+            </div>
+            <div class="step-buttons">
+              <button class="btn btn-outline" onclick="goToStep(2)">← Back</button>
+              <button class="btn btn-primary" id="confirmBooking" onclick="confirmBooking()">✅ Confirm Booking</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
